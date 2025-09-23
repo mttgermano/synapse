@@ -19,6 +19,13 @@ O objetivo é oferecer respostas contextualizadas, concisas e fundamentadas em e
 O sistema foi treinado com datasets [BioAsk](https://www.bioasq.org/), abrangendo publicações dos últimos cinco anos (2020–2025).
 
 ---
+
+## 💻 Demo
+<div align="center">
+  <img src="docs/demo.png" alt="Synapse Logo"/>
+</div>
+
+---
 ## 🚀 Arquitetura e Tecnologias
 
 O coração do Guardião é um grafo computacional gerenciado pelo **LangGraph**, que orquestra a colaboração entre diferentes agentes especializados.
@@ -124,12 +131,14 @@ Um `Makefile` foi configurado para simplificar as tarefas comuns.
 | `make build`    | Constrói a imagem Docker para a aplicação.                                          |
 | `make run-docker` | Executa a aplicação dentro de um container Docker.                                |
 | `make evaluate` | Avalia o sistema RAG usando o CSV de teste e gera relatórios em JSON e Markdown.    |
-<!--
+
 ---
+
+<!--
 
 ## 📊 Avaliação de Desempenho
 
-Para garantir a qualidade e a confiabilidade das respostas, o **Guardião dos Direitos** foi submetido a uma avaliação rigorosa utilizando o framework **Ragas**. O benchmark foi realizado com um conjunto de **10 perguntas** complexas sobre regras de aposentadoria e benefícios, avaliando quatro métricas essenciais.
+Para garantir a qualidade e a confiabilidade das respostas, o sistema foi submetido a uma avaliação rigorosa utilizando o framework **Ragas**. O benchmark foi realizado com um conjunto de **20 perguntas** complexas sobre regras de aposentadoria e benefícios, avaliando quatro métricas essenciais.
 
 | Métrica            | Média   | Status | Análise                                                                                 |
 | :----------------- | :-----: | :----: | :-------------------------------------------------------------------------------------- |
@@ -146,9 +155,9 @@ Os resultados demonstram uma **evolução positiva** no desempenho geral do sist
 
 Os resultados completos, incluindo métricas agregadas, respostas individuais e os contextos utilizados, estão disponíveis no relatório:  
 [📑 eval/ragas_report.md](eval/ragas_report.md)
-
----
 -->
+---
+
 ## 📄 Licença
 
 Este projeto está licenciado sob a **MIT License** - veja o arquivo [LICENSE](LICENSE) para detalhes.
