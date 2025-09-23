@@ -17,7 +17,7 @@ class Workflow:
         self.w = self.workflow.compile()
 
     def tool_node(self, state):
-        print("---EXECUTANDO FERRAMENTA---")
+        print("[*] EXECUTANDO FERRAMENTA")
         tool_calls = state["messages"][-1].tool_calls
         tool_messages = []
 
@@ -32,7 +32,7 @@ class Workflow:
         return {"messages": tool_messages}
 
     def supervisor_node(self, state):
-        print("---CHAMANDO SUPERVISOR---")
+        print("[*] CHAMANDO SUPERVISOR")
         response = self.llm.invoke(state["messages"])
         return {"messages": [response]}
 

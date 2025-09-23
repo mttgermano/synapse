@@ -6,6 +6,9 @@ from pydantic import BaseModel, Field
 from langchain_google_genai import ChatGoogleGenerativeAI
 import os
 
+from dotenv import load_dotenv
+load_dotenv()
+
 
 def init_llm(retriever):
     llm = llm_base()
@@ -17,15 +20,14 @@ def llm_base():
     return ChatGoogleGenerativeAI(
         model="gemini-2.5-flash",
         temperature=0.0,
-        google_api_key="AIzaSyD5rbP-fsG3NB2gQo2tgfDjyRPMRlNpB-0",
+        google_api_key=os.getenv("API_KEY"),
     )
-
 
 def bind_tools(llm, retriever):
     @tool
     def retriever_agent(question: str):
-        """Busca documentos relevantes em saúde pública para responder à pergunta."""
-        print("---FERRAMENTA: RetrieverAgent---")
+        """Busca documentos relevantes de biomediciana para responder à pergunta."""
+        print("--[Tool] RetrieverAgent")
         documents = retriever.invoke(question)
         for doc in documents:
             if "source" in doc.metadata and "page" in doc.metadata:
@@ -35,9 +37,9 @@ def bind_tools(llm, retriever):
     @tool
     def answer_agent(question: str, documents: List[dict]):
         """Gera resposta com base apenas nos documentos fornecidos, citando fontes."""
-        print("---FERRAMENTA: AnswerAgent---")
+        print("--[Tool]: AnswerAgent")
         prompt_template = """
-        Você é um assistente especializado em saúde pública.
+        Você é um assistente especializado em Biomedicina.
         Responda à pergunta SOMENTE com base no contexto fornecido.
         Se a informação não estiver no contexto, diga: 
         "Não encontrei informações sobre isso nos documentos fornecidos."
@@ -59,7 +61,7 @@ def bind_tools(llm, retriever):
     @tool
     def self_check_agent(answer: str, documents: List[dict]):
         """Verifica se a resposta é suportada pelo contexto fornecido."""
-        print("---FERRAMENTA: SelfCheckAgent---")
+        print("--[Tool]: SelfCheckAgent")
     
         class Verdict(BaseModel):
             is_grounded: bool = Field(
@@ -92,7 +94,7 @@ def bind_tools(llm, retriever):
     @tool
     def safety_agent(answer: str):
         """Adiciona aviso de segurança à resposta final."""
-        print("---FERRAMENTA: SafetyAgent---")
+        print("--[Tool]: SafetyAgent")
         disclaimer = (
             "\n\n**Aviso:** Este assistente é apenas para fins informativos "
             "e não substitui a consulta com um profissional de saúde."

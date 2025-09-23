@@ -1,0 +1,8 @@
+@software{synapse2025,
+  author = {Matheus Germano, Pedro Simões},
+  title = {Synapse: BioAsk RAG Client},
+  year = {2025},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {[https://github.com/mttgermano/synapse](https://github.com/mttgermano/synapses)}
+}
