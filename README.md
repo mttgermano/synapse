@@ -36,7 +36,7 @@ O coração do Guardião é um grafo computacional gerenciado pelo **LangGraph**
 2.  **Execução Condicional**:
     -   Se for uma **saudação** ou **meta-pergunta**, agentes específicos fornecem respostas diretas e amigáveis.
     -   Se for **fora de tópico**, um agente recusa educadamente a solicitação.
-    -   Se for sobre **Direito Previdenciário**, a pergunta entra no pipeline RAG principal.
+    -   Se for sobre **BioMedicina**, a pergunta entra no pipeline RAG principal.
 3.  **Pipeline RAG**:
     -   **Query Transformer**: Expande a pergunta original em múltiplas variantes para uma busca mais abrangente.
     -   **Retriever & Reranker**: Busca os documentos mais relevantes usando FAISS e os reordena com um Cross-Encoder para máxima precisão.
@@ -134,28 +134,26 @@ Um `Makefile` foi configurado para simplificar as tarefas comuns.
 
 ---
 
-<!--
-
 ## 📊 Avaliação de Desempenho
 
 Para garantir a qualidade e a confiabilidade das respostas, o sistema foi submetido a uma avaliação rigorosa utilizando o framework **Ragas**. O benchmark foi realizado com um conjunto de **20 perguntas** complexas sobre regras de aposentadoria e benefícios, avaliando quatro métricas essenciais.
 
 | Métrica            | Média   | Status | Análise                                                                                 |
 | :----------------- | :-----: | :----: | :-------------------------------------------------------------------------------------- |
-| **Answer Relevancy** | `0.972` | 🟢   | As respostas estão **excelentemente alinhadas** com as perguntas dos usuários.          |
-| **Context Precision**| `0.876` | 🟢   | O sistema é **muito eficiente** em recuperar os contextos mais relevantes.             |
-| **Context Recall**   | `0.833` | 🟢   | O sistema consegue encontrar a **maioria dos contextos necessários** para uma resposta completa.|
-| **Faithfulness**     | `0.702` | 🟡   | As respostas melhoraram, mas o foco continua em **garantir a total aderência** aos fatos. |
+| **Answer Relevancy** | `0.887` | 🟢   | As respostas estão **alinhadas** com as perguntas dos usuários.          |
+| **Context Precision**| `0.824` | 🟡   | O sistema é **bom** em recuperar os contextos mais relevantes.             |
+| **Context Recall**   | `0.999` | 🟢   | O sistema é ótimo em encontrar os **contextos necessários** para uma resposta completa.|
+| **Faithfulness**     | `0.963` | 🟢   | As respostas melhoraram, mas o foco continua em **garantir a total aderência** aos fatos. |
 
 ### Análise dos Resultados
 
-Os resultados demonstram uma **evolução positiva** no desempenho geral do sistema, com uma performance quase perfeita em **Answer Relevancy** (`0.972`) e uma melhoria notável em **Faithfulness** (`0.702`). O sistema de recuperação continua robusto, mantendo altas pontuações de precisão e recall.
+Os resultados demonstram uma **evolução positiva** no desempenho geral do sistema, com uma performance quase perfeita em **Context Recall** (`0.999`) e uma melhoria notável em **Faithfulness** (`0.963`). O sistema de recuperação continua robusto, mantendo altas pontuações de precisão e recall.
 
 ### Resultados detalhados
 
 Os resultados completos, incluindo métricas agregadas, respostas individuais e os contextos utilizados, estão disponíveis no relatório:  
 [📑 eval/ragas_report.md](eval/ragas_report.md)
--->
+
 ---
 
 ## 📄 Licença
