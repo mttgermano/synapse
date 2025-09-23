@@ -9,3 +9,5 @@ venv/
 .uv/
 
 .env
+
+bk

@@ -7,7 +7,7 @@ import streamlit as st
 def load_workflow():
     retriever = start_vdb()  
     bert = Bert(retriever)
-    return workflow
+    return bert 
 
 workflow = load_workflow()
 
@@ -28,18 +28,23 @@ def app():
         """,
         unsafe_allow_html=True
     )
-    
-    if "messages" not in st.session_state:
-        st.session_state["messages"] = [{"role": "assistant", "content": "Pergunte-me sobre informações biomédicas do estado da arte!"}]
-    
+
+    model_choice = st.selectbox("", ["Bert", "BioBert", "BioBertSquad"])
+
+    st.session_state["messages"] = [{"role": "assistant", "content": "Pergunte-me sobre informações biomédicas do estado da arte!"}]
+
     for msg in st.session_state.messages:
         st.chat_message(msg["role"]).write(msg["content"])
+
+    
+    #for msg in st.session_state.messages:
+    #    st.chat_message(msg["role"]).write(msg["content"])
     
     if prompt := st.chat_input():
         user_msg = {"role": "user", "content": prompt}
         st.chat_message("user").write(prompt)
     
-        msg = workflow.ask(prompt)
+        msg = workflow.ask(prompt,model_choice)
     
         assistant_msg = {"role": "assistant", "content": msg}
         st.chat_message("assistant").write(msg)
