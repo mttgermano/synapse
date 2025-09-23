@@ -28,7 +28,7 @@ O sistema foi treinado com datasets [BioAsk](https://www.bioasq.org/), abrangend
 ---
 ## 🚀 Arquitetura e Tecnologias
 
-O coração do Guardião é um grafo computacional gerenciado pelo **LangGraph**, que orquestra a colaboração entre diferentes agentes especializados.
+O coração do sistema é um grafo computacional gerenciado pelo **LangGraph**, que orquestra a colaboração entre diferentes agentes especializados.
 
 **Fluxo de Agentes Detalhado:**
 
