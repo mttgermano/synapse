@@ -4,6 +4,7 @@ from langchain.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser, JsonOutputParser
 from pydantic import BaseModel, Field
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_ollama import ChatOllama
 import os
 
 from dotenv import load_dotenv
@@ -17,10 +18,14 @@ def init_llm(retriever):
 
 
 def llm_base():
-    return ChatGoogleGenerativeAI(
-        model="gemini-2.5-flash",
+    #return ChatGoogleGenerativeAI(
+    #    model="gemini-2.5-flash",
+    #    temperature=0.0,
+    #    google_api_key=os.getenv("API_KEY"),
+    #)
+    return ChatOllama(
+        model="llama3",
         temperature=0.0,
-        google_api_key=os.getenv("API_KEY"),
     )
 
 def bind_tools(llm, retriever):

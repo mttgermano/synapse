@@ -1,4 +1,4 @@
-from src.workflow import Workflow
+from src.bert import Bert
 from ingest.vdb import start_vdb
 
 import streamlit as st
@@ -6,7 +6,7 @@ import streamlit as st
 @st.cache_resource
 def load_workflow():
     retriever = start_vdb()  
-    workflow = Workflow(retriever)
+    bert = Bert(retriever)
     return workflow
 
 workflow = load_workflow()
