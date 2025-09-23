@@ -12,3 +12,6 @@ docker-build:
 
 docker-run:
 	docker run -it --rm -p 8501:8501 synapse
+
+eval:
+	python -m evaluate.test_ragas

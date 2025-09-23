@@ -12,7 +12,22 @@ def load_workflow():
 workflow = load_workflow()
 
 def app():
-    st.title("[🪼Synapse] BioAsk RAG Client")
+
+    st.markdown(
+        """
+        <div style='
+            background-color: #007BFF; 
+            padding: 20px; 
+            border-radius: 10px;
+        '>
+            <h1 style='color: white;'>🪼Synapse: BioAsk RAG Client</h1>
+            <p style='color: white; text-align: center;'>
+            AI assistant specialized in Evidence-Based BioMedicine
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
     
     if "messages" not in st.session_state:
         st.session_state["messages"] = [{"role": "assistant", "content": "Pergunte-me sobre informações biomédicas do estado da arte!"}]

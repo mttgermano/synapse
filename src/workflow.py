@@ -3,6 +3,14 @@ from langchain_core.messages import HumanMessage, ToolMessage
 from langgraph.graph import StateGraph, END
 from typing import TypedDict, Annotated
 import operator
+from langchain_core.language_models import BaseLanguageModel
+from langchain_core.outputs import LLMResult, Generation
+from typing import Any, List
+from typing import Any, List
+from langchain_core.language_models import BaseLanguageModel
+from langchain_core.outputs import Generation, LLMResult
+from langchain_core.messages import AIMessage, HumanMessage
+from pydantic import PrivateAttr
 
 
 class GraphState(TypedDict):
@@ -53,3 +61,71 @@ class Workflow:
         initial_state = {"messages": [HumanMessage(content=question)]}
         final_state = self.w.invoke(initial_state)
         return final_state["messages"][-1].content
+
+class WorkflowLLM(BaseLanguageModel):
+    # Atributo privado (não gerenciado pelo Pydantic)
+    _workflow: Any = PrivateAttr()
+
+    def __init__(self, workflow, **kwargs):
+        super().__init__(**kwargs)
+        self._workflow = workflow
+
+    # ======================
+    # Métodos síncronos
+    # ======================
+    def predict(self, text: str, **kwargs) -> str:
+        return self._workflow.ask(text)
+
+    def predict_messages(self, messages, **kwargs) -> AIMessage:
+        text = " ".join(m.content for m in messages if isinstance(m, HumanMessage))
+        return AIMessage(content=self._workflow.ask(text))
+
+    def generate_prompt(self, prompt, **kwargs) -> str:
+        return self._workflow.ask(str(prompt))
+
+    # ======================
+    # Métodos assíncronos
+    # ======================
+    async def apredict(self, text: str, **kwargs) -> str:
+        return self._workflow.ask(text)
+
+    async def apredict_messages(self, messages, **kwargs) -> AIMessage:
+        text = " ".join(m.content for m in messages if isinstance(m, HumanMessage))
+        return AIMessage(content=self._workflow.ask(text))
+
+    async def agenerate_prompt(self, prompt, **kwargs) -> str:
+        return self._workflow.ask(str(prompt))
+
+    # ======================
+    # Invoke compatível com LangChain
+    # ======================
+    def invoke(self, prompt, **kwargs) -> str:
+        if isinstance(prompt, str):
+            return self._workflow.ask(prompt)
+        elif isinstance(prompt, list):
+            last = prompt[-1]
+            return self._workflow.ask(getattr(last, "content", str(last)))
+        else:
+            return self._workflow.ask(str(prompt))
+
+    # ======================
+    # Ragas precisa desse hook
+    # ======================
+    def set_run_config(self, config: Any):
+        self._run_config = config
+
+    # ======================
+    # Métodos exigidos pelo BaseLanguageModel
+    # ======================
+    @property
+    def _llm_type(self) -> str:
+        return "workflow-llm"
+
+    def _generate(
+        self, prompts: List[str], stop: Any = None, run_manager: Any = None
+    ) -> LLMResult:
+        generations = []
+        for prompt in prompts:
+            output = self._workflow.ask(prompt)
+            generations.append([Generation(text=output)])
+        return LLMResult(generations=generations)
