@@ -1,7 +1,17 @@
 from langchain_google_genai import ChatGoogleGenerativeAI
 
+import requests
+import os
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_core.messages import BaseMessage, HumanMessage, ToolMessage
+from langchain_core.tools import tool
+from langgraph.graph import StateGraph, END
+import operator
+from typing import List, TypedDict, Annotated
 
-def init_llm_pipeline():
+def init_llm():
     pipeline = [llm_base, bind_tools]
     out = ""
     for process in pipeline:
@@ -96,4 +106,6 @@ def bind_tools(llm):
         return answer + disclaimer
 
     tools = [retriever_agent, answer_agent, self_check_agent, safety_agent]
-    return llm.bind_tools(tools)
+    tool_map = {tool.name: tool for tool in tools}
+
+    return llm.bind_tools(tools), tool_map

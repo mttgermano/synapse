@@ -1,9 +1,7 @@
 import streamlit as st
-#from openai import OpenAI
+from src.workflow import Workflow
 
-
-
-
+workflow = Workflow()
 
 def app():
     st.title("[🪼Synapse] BioAsk RAG Client")
@@ -26,3 +24,5 @@ def app():
         msg = response.choices[0].message.content
         st.session_state.messages.append({"role": "assistant", "content": msg})
         st.chat_message("assistant").write(msg)
+
+app()
