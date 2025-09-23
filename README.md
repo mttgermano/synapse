@@ -59,12 +59,10 @@ O coração do sistema é um grafo computacional gerenciado pelo **LangGraph**, 
 ---
 ## ⚙️ Como Executar o Projeto
 
-Siga os passos abaixo para configurar e rodar o Guardião dos Direitos em seu ambiente.
-
 ### **Pré-requisitos**
 
 -   Python 3.10
--   Docker e Docker Compose (para a execução com container)
+-   Docker e Dockerfile (para a execução com container)
 -   Uma chave de API do Google AI Studio (para o Gemini)
 
 ### **1. Configuração Inicial**
