@@ -1,8 +1,8 @@
 pandas
+langgraph
 langchain
+langchain_google_genai
 langchain-huggingface
 langchain-community
 faiss-cpu
 sentence-transformers
-langchain_google_genai
-langgraph

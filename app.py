@@ -1,7 +1,10 @@
-import streamlit as st
 from src.workflow import Workflow
+from ingest.vdb import start_vdb
 
-workflow = Workflow()
+import streamlit as st
+
+retriever = start_vdb()
+workflow = Workflow(retriever)
 
 def app():
     st.title("[🪼Synapse] BioAsk RAG Client")
@@ -13,15 +16,11 @@ def app():
         st.chat_message(msg["role"]).write(msg["content"])
     
     if prompt := st.chat_input():
-        #if not openai_api_key:
-        #    st.info("Please add your OpenAI API key to continue.")
-        #    st.stop()
-    
-        #client = OpenAI(api_key=openai_api_key)
-        st.session_state.messages.append({"role": "user", "content": prompt})
+        st.session_state.messages.append(prompt)
         st.chat_message("user").write(prompt)
-        response = client.chat.completions.create(model="gpt-3.5-turbo", messages=st.session_state.messages)
-        msg = response.choices[0].message.content
+
+        msg = workflow.ask(st.session_state.messages[-1])
+
         st.session_state.messages.append({"role": "assistant", "content": msg})
         st.chat_message("assistant").write(msg)
 
