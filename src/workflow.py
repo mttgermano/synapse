@@ -62,17 +62,15 @@ class Workflow:
         final_state = self.w.invoke(initial_state)
         return final_state["messages"][-1].content
 
+
+# classe wraper para ragas
 class WorkflowLLM(BaseLanguageModel):
-    # Atributo privado (não gerenciado pelo Pydantic)
     _workflow: Any = PrivateAttr()
 
     def __init__(self, workflow, **kwargs):
         super().__init__(**kwargs)
         self._workflow = workflow
 
-    # ======================
-    # Métodos síncronos
-    # ======================
     def predict(self, text: str, **kwargs) -> str:
         return self._workflow.ask(text)
 
@@ -83,9 +81,6 @@ class WorkflowLLM(BaseLanguageModel):
     def generate_prompt(self, prompt, **kwargs) -> str:
         return self._workflow.ask(str(prompt))
 
-    # ======================
-    # Métodos assíncronos
-    # ======================
     async def apredict(self, text: str, **kwargs) -> str:
         return self._workflow.ask(text)
 
@@ -96,9 +91,6 @@ class WorkflowLLM(BaseLanguageModel):
     async def agenerate_prompt(self, prompt, **kwargs) -> str:
         return self._workflow.ask(str(prompt))
 
-    # ======================
-    # Invoke compatível com LangChain
-    # ======================
     def invoke(self, prompt, **kwargs) -> str:
         if isinstance(prompt, str):
             return self._workflow.ask(prompt)
@@ -108,22 +100,14 @@ class WorkflowLLM(BaseLanguageModel):
         else:
             return self._workflow.ask(str(prompt))
 
-    # ======================
-    # Ragas precisa desse hook
-    # ======================
     def set_run_config(self, config: Any):
         self._run_config = config
 
-    # ======================
-    # Métodos exigidos pelo BaseLanguageModel
-    # ======================
     @property
     def _llm_type(self) -> str:
         return "workflow-llm"
 
-    def _generate(
-        self, prompts: List[str], stop: Any = None, run_manager: Any = None
-    ) -> LLMResult:
+    def _generate( self, prompts: List[str], stop: Any = None, run_manager: Any = None) -> LLMResult:
         generations = []
         for prompt in prompts:
             output = self._workflow.ask(prompt)
