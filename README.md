@@ -10,32 +10,18 @@
 </div>
 
 ---
+**Synapse: BioAsk RAG Client — Seu assistente de IA especializado em Medicina Baseada em Evidências**
 
-**Seu assistente de IA especializado em Direito Previdenciário, construído com uma arquitetura de agentes avançada.**
+O Synapse é um sistema de Geração Aumentada por Recuperação (RAG) altamente sofisticado, projetado para responder a perguntas complexas em saúde e biomedicina com base em artigos médicos revisados por pares.
 
-O Guardião dos Direitos não é apenas mais um chatbot. É um sistema de **Geração Aumentada por Recuperação (RAG)** altamente sofisticado, projetado para responder a perguntas complexas sobre Direito Previdenciário com base em fontes documentais (leis, normas, cartilhas, etc.). O objetivo é fornecer respostas precisas, confiáveis e sempre com **citações diretas**, democratizando o acesso à informação jurídica.
+O objetivo é oferecer respostas contextualizadas, concisas e fundamentadas em evidências científicas, sempre com referências diretas às fontes consultadas. Dessa forma, estudantes de medicina, médicos, pesquisadores e pacientes têm acesso rápido e confiável a informações validadas, promovendo uma prática médica mais segura e informada.
 
----
-
-## ✨ Principais Funcionalidades
-
--   **🧠 Roteamento Inteligente com Agente Supervisor**: O sistema primeiro analisa a intenção do usuário. Perguntas sobre o tema são enviadas ao pipeline de RAG, enquanto saudações, meta-perguntas ou tópicos não relacionados são tratados por agentes especializados, tornando a interação mais natural e eficiente.
--   **🎯 Recuperação de Alta Precisão (Retrieval de 2 Estágios)**: Para garantir que as respostas sejam baseadas nos trechos mais relevantes, utilizamos uma abordagem de duas fases:
-    1.  **Busca Rápida (FAISS)**: Uma busca vetorial inicial recupera um conjunto amplo de documentos candidatos.
-    2.  **Reordenação Fina (Cross-Encoder)**: Um modelo de `Cross-Encoder` (`BAAI/bge-reranker-base`) reavalia esses candidatos, comparando a pergunta diretamente com o conteúdo de cada trecho para promover as respostas mais diretas e contextualmente corretas ao topo.
--   **🔒 Respostas Confiáveis com Citações**: Nenhuma informação é fornecida sem sua devida fonte. Todas as respostas geradas pelo pipeline principal incluem citações obrigatórias, indicando o documento e a página de origem.
--   **🌐 Interface Interativa e Transparente**: Uma interface construída com Streamlit que mostra o status do processamento em tempo real e permite ao usuário visualizar as fontes completas utilizadas para formular cada resposta.
+O sistema foi treinado com datasets [BioAsk](https://www.bioasq.org/), abrangendo publicações dos últimos cinco anos (2020–2025).
 
 ---
-<!--
 ## 🚀 Arquitetura e Tecnologias
 
 O coração do Guardião é um grafo computacional gerenciado pelo **LangGraph**, que orquestra a colaboração entre diferentes agentes especializados.
-
-<div align="center">
-  <img src="docs/graph.png" alt="Arquitetura de Agentes da Synapse" width="400"/>
-</div>
-
 
 **Fluxo de Agentes Detalhado:**
 
@@ -64,7 +50,6 @@ O coração do Guardião é um grafo computacional gerenciado pelo **LangGraph**
 | **Containerização** | `Docker`                                               | Garante a reprodutibilidade e facilita o deploy do ambiente.                   |
 
 ---
--->
 ## ⚙️ Como Executar o Projeto
 
 Siga os passos abaixo para configurar e rodar o Guardião dos Direitos em seu ambiente.
@@ -127,7 +112,7 @@ Siga os passos abaixo para configurar e rodar o Guardião dos Direitos em seu am
     Acesse a interface em `http://localhost:8501`.
 
 ---
-<!--
+
 ## 📜 Comandos do Makefile
 
 Um `Makefile` foi configurado para simplificar as tarefas comuns.
@@ -139,7 +124,7 @@ Um `Makefile` foi configurado para simplificar as tarefas comuns.
 | `make build`    | Constrói a imagem Docker para a aplicação.                                          |
 | `make run-docker` | Executa a aplicação dentro de um container Docker.                                |
 | `make evaluate` | Avalia o sistema RAG usando o CSV de teste e gera relatórios em JSON e Markdown.    |
-
+<!--
 ---
 
 ## 📊 Avaliação de Desempenho
