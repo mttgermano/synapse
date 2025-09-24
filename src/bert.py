@@ -3,11 +3,10 @@ from transformers import AutoTokenizer, AutoModelForQuestionAnswering, AutoModel
 
 class Bert:
     def __init__(self,retriever):
-        #biobert_model_name = 
         self.retriever = retriever
-        init_models()
+        self.init_models()
 
-    def init_models():
+    def init_models(self):
         # BioBert
         biobert_model_name = "dmis-lab/biobert-v1.1"
         self.biobert_tokenizer = AutoTokenizer.from_pretrained(biobert_model_name)
@@ -16,11 +15,11 @@ class Bert:
         # BioBertSquad
         biobert_squad_model_name = "dmis-lab/biobert-large-cased-v1.1-squad"
         self.biobert_squad_tokenizer = AutoTokenizer.from_pretrained(biobert_squad_model_name)
-        self.biobert_squad = AutoModelForQuestionAnswering.from_pretrained(bert_model_name)
+        self.biobert_squad = AutoModelForQuestionAnswering.from_pretrained(biobert_squad_model_name)
 
         # BertBase
         bert_model_name = "google-bert/bert-base-uncased"
-        slef.bert_tokenizer = AutoTokenizer.from_pretrained(bert_model_name)
+        self.bert_tokenizer = AutoTokenizer.from_pretrained(bert_model_name)
         self.bert = AutoModelForQuestionAnswering.from_pretrained(bert_model_name)
 
     
@@ -56,8 +55,9 @@ class Bert:
         docs = [doc.page_content for doc in rag_result] 
         metadatas = [doc.metadata for doc in rag_result]
 
-        sep = " <SEP> "
-        context = sep.join(docs)
+        #sep = " <SEP> "
+        #context = sep.join(docs)
+        context = " ".join(docs)
         print(context)
 
         result = p({
@@ -84,6 +84,6 @@ class Bert:
         for i in docs:
             citation += metadatas[i].get("source"," ") + "\n" 
 
-        output = answer + "\n\nBased Articles: \n\n" + citation[1:-2]
+        output = answer + "\n\n**[Based Articles]** \n\n" + citation[1:-2]
 
         return output

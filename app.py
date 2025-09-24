@@ -12,6 +12,11 @@ def load_workflow():
 workflow = load_workflow()
 
 def app():
+    st.set_page_config(
+        page_title="Synapse: BioAsk RAG Client",
+        #layout="centered"
+        layout="wide"
+    )
 
     st.markdown(
         """
@@ -29,24 +34,34 @@ def app():
         unsafe_allow_html=True
     )
 
-    model_choice = st.selectbox("", ["Bert", "BioBert", "BioBertSquad"])
+    models = ["Bert", "BioBert", "BioBertSquad"]
+    model_choice = st.selectbox("", models+["All"])
 
     st.session_state["messages"] = [{"role": "assistant", "content": "Pergunte-me sobre informações biomédicas do estado da arte!"}]
 
     for msg in st.session_state.messages:
         st.chat_message(msg["role"]).write(msg["content"])
-
-    
-    #for msg in st.session_state.messages:
-    #    st.chat_message(msg["role"]).write(msg["content"])
     
     if prompt := st.chat_input():
         user_msg = {"role": "user", "content": prompt}
         st.chat_message("user").write(prompt)
-    
-        msg = workflow.ask(prompt,model_choice)
-    
-        assistant_msg = {"role": "assistant", "content": msg}
-        st.chat_message("assistant").write(msg)
+        
+        if model_choice == "All":
+            col1, col2, col3 = st.columns(3)
+
+            with col1:
+                msg1 = workflow.ask(prompt,models[0])
+                st.chat_message("assistant").write(f"**[{models[0]}]**\n\n {msg1}")
+
+            with col2:
+                msg2 = workflow.ask(prompt,models[1])
+                st.chat_message("assistant").write(f"**[{models[1]}]**\n\n {msg2}")
+
+            with col3:
+                msg3 = workflow.ask(prompt,models[2])
+                st.chat_message("assistant").write(f"**[{models[2]}]**\n\n {msg3}")
+        else:
+            msg = workflow.ask(prompt,model_choice)
+            st.chat_message("assistant").write(msg)
 
 app()

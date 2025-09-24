@@ -11,7 +11,8 @@ def start_vdb():
 
     docs = [
         Document(
-            page_content=f"[QUESTION] {row['body']}\n\n[ANSWER] {row['ideal_answer']}",
+            #page_content=f"[QUESTION] {row['body']} [ANSWER] {row['ideal_answer']}",
+            page_content=f"{row['body']} {row['ideal_answer']}",
             metadata={"source": row["snippets"]},
         )
         for _, row in df.iterrows()
