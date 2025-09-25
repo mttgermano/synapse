@@ -55,10 +55,10 @@ class Bert:
         docs = [doc.page_content for doc in rag_result] 
         metadatas = [doc.metadata for doc in rag_result]
 
-        #sep = " <SEP> "
-        #context = sep.join(docs)
-        context = " ".join(docs)
-        print(context)
+        sep = " <SEP> "
+        context = sep.join(docs)
+        # context = " ".join(docs)
+        # print(context)
 
         result = p({
             "context": context,

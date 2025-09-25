@@ -106,36 +106,4 @@ dataset_with_results = evaluation_dataset.add_column("answer", answers)
 dataset_with_results = dataset_with_results.add_column("contexts", contexts)
 
 print("[*] Dataset com resultados do modelo RAG\n\n")
-print(dataset_with_results)
-
-# ---------------------------------------------------------------
-# Avaliação com Ragas
-metrics = [
-    faithfulness,
-    answer_relevancy,
-    context_precision,
-    context_recall,
-    answer_correctness,
-]
-
-print("[*] Iniciando a avaliação com Ragas (usando Gemini como juiz)")
-
-result = evaluate(
-    dataset=dataset_with_results,
-    metrics=metrics,
-    llm=generator_llm,
-    embeddings=eval_embeddings,
-)
-
-print("[*] Avaliação concluída")
-
-# ---------------------------------------------------------------
-# Resultados finais
-print("[*] Resultados da Avaliação Ragas")
-print(result)
-
-df_results = result.to_pandas()
-print(df_results)
-
-df_results.to_csv("./evaluate/ragas_evaluation.csv", index=False)
-exit()
+pd.DataFrame(dataset_with_results.to_dict()).to_csv("./evaluate/rag_responses.csv", index=False)
