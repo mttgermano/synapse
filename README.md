@@ -140,12 +140,12 @@ Para garantir a qualidade e a confiabilidade das respostas, o sistema foi submet
 | :----------------- | :-----: | :----: | :-------------------------------------------------------------------------------------- |
 | **Answer Relevancy** | `0.887` | 🟢   | As respostas estão **alinhadas** com as perguntas dos usuários.          |
 | **Context Precision**| `0.824` | 🟡   | O sistema é **bom** em recuperar os contextos mais relevantes.             |
-| **Context Recall**   | `0.999` | 🟢   | O sistema é ótimo em encontrar os **contextos necessários** para uma resposta completa.|
+| **Context Recall**   | `0.991` | 🟢   | O sistema é ótimo em encontrar os **contextos necessários** para uma resposta completa.|
 | **Faithfulness**     | `0.963` | 🟢   | As respostas melhoraram, mas o foco continua em **garantir a total aderência** aos fatos. |
 
 ### Análise dos Resultados
 
-Os resultados demonstram uma **evolução positiva** no desempenho geral do sistema, com uma performance quase perfeita em **Context Recall** (`0.999`) e uma melhoria notável em **Faithfulness** (`0.963`). O sistema de recuperação continua robusto, mantendo altas pontuações de precisão e recall.
+Os resultados demonstram uma **evolução positiva** no desempenho geral do sistema, com uma performance quase perfeita em **Context Recall** (`0.991`) e uma melhoria notável em **Faithfulness** (`0.963`). O sistema de recuperação continua robusto, mantendo altas pontuações de precisão e recall.
 
 ### Resultados detalhados
 
