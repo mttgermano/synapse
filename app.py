@@ -1,4 +1,5 @@
 from src.bert import Bert
+from src.workflow import Workflow
 from ingest.vdb import start_vdb
 
 import streamlit as st
@@ -7,9 +8,10 @@ import streamlit as st
 def load_workflow():
     retriever = start_vdb()  
     bert = Bert(retriever)
-    return bert 
+    w = Workflow(retriever)
+    return bert, w
 
-workflow = load_workflow()
+workflow, w= load_workflow()
 
 def app():
     st.set_page_config(
@@ -34,7 +36,7 @@ def app():
         unsafe_allow_html=True
     )
 
-    models = ["Bert", "BioBert", "BioBertSquad"]
+    models = ["Bert", "BioBert", "BioBertSquad","BioBertSquad + Mistral"]
     model_choice = st.selectbox("", models+["All"])
 
     st.session_state["messages"] = [{"role": "assistant", "content": "Pergunte-me sobre informações biomédicas do estado da arte!"}]
@@ -60,6 +62,9 @@ def app():
             with col3:
                 msg3 = workflow.ask(prompt,models[2])
                 st.chat_message("assistant").write(f"**[{models[2]}]**\n\n {msg3}")
+        elif model_choice == "BioBertSquad + Mistral":
+            w.ask(prompt)
+
         else:
             msg = workflow.ask(prompt,model_choice)
             st.chat_message("assistant").write(msg)

@@ -10,6 +10,8 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+from src.bert import Bert
+
 
 def init_llm(retriever):
     llm = llm_base()
@@ -24,20 +26,23 @@ def llm_base():
     #    google_api_key=os.getenv("API_KEY"),
     #)
     return ChatOllama(
-        model="llama3",
+        model="llama3.1",
         temperature=0.0,
     )
+
 
 def bind_tools(llm, retriever):
     @tool
     def retriever_agent(question: str):
         """Busca documentos relevantes de biomediciana para responder à pergunta."""
-        print("--[Tool] RetrieverAgent")
-        documents = retriever.invoke(question)
-        for doc in documents:
-            if "source" in doc.metadata and "page" in doc.metadata:
-                doc.metadata["source"] = f"{os.path.basename(doc.metadata['source'])}, pág. {doc.metadata['page']}"
-        return documents
+        #print("--[Tool] RetrieverAgent")
+        #documents = retriever.invoke(question)
+        #for doc in documents:
+        #    if "source" in doc.metadata and "page" in doc.metadata:
+        #        doc.metadata["source"] = f"{os.path.basename(doc.metadata['source'])}, pág. {doc.metadata['page']}"
+        #return documents
+        bert = Bert(retriever)
+        return bert.ask(question, "BioBertSquad")
 
     @tool
     def answer_agent(question: str, documents: List[dict]):
