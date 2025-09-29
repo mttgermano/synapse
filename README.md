@@ -1,4 +1,4 @@
-# 🪼 Synapse: BioAsk RAG Client
+# 🪼 Synapse: BioAsk RAG + BERT Client
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![LangChain](https://img.shields.io/badge/LangChain-0.2+-green.svg)](https://langchain.com)
@@ -10,7 +10,7 @@
 </div>
 
 ---
-**Synapse: BioAsk RAG Client — Seu assistente de IA especializado em Medicina Baseada em Evidências**
+**Synapse: BioAsk RAG + BERT Client — Seu assistente de IA especializado em Medicina Baseada em Evidências**
 
 O Synapse é um sistema de Geração Aumentada por Recuperação (RAG) altamente sofisticado, projetado para responder a perguntas complexas em saúde e biomedicina com base em artigos médicos revisados por pares.
 
