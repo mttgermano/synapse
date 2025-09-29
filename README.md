@@ -166,7 +166,7 @@ Se você utilizar o Synapse em pesquisas ou trabalhos, cite este projeto.
 [`CITATION.cff`](./docs/CITATION.cff)
 ```bibtex
 @software{synapse2025,
-  author = {Matheus Germano, Pedro Simões},
+  author = {Matheus Germano, Douglas Alves},
   title = {Synapse: BioAsk RAG Client},
   year = {2025},
   publisher = {GitHub},
